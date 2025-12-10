@@ -1,0 +1,14 @@
+prefix; URI
+SAREEF; https://saref.etsi.org/core/v3.2.1/
+SAREF4ENER; https://saref.etsi.org/saref4ener/v1.2.1/
+SAREF4ENVI; https://saref.etsi.org/saref4envi/v1.1.2/
+SAREF4BLDG; https://saref.etsi.org/saref4bldg/v1.1.2/
+SAREF4CITY; https://saref.etsi.org/saref4city/v1.1.2/
+SAREF4INMA; https://saref.etsi.org/saref4inma/v1.1.2/
+SAREF4AGRI; https://saref.etsi.org/saref4agri/v1.1.2/
+SAREF4AUTO; https://saref.etsi.org/saref4auto/v1.1.1/
+SAREF4EHAW; https://saref.etsi.org/saref4ehaw/v1.1.1/
+SAREF4WEAR; https://saref.etsi.org/saref4wear/v1.1.1/
+SAREF4WATR; https://saref.etsi.org/saref4watr/v1.1.1/
+SAREF4LIFT; https://saref.etsi.org/saref4lift/v1.1.1/
+SAREF4GRID; https://saref.etsi.org/saref4grid/v1.1.1/

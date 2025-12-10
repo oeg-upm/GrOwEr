@@ -1,4 +1,5 @@
 import os
+
 from flask import Flask, render_template
 from app.source.generateFrontElements.utilities import read_csv_file, read_and_process_patterns,read_and_process_file_structure,read_and_process_file_structure_blank_nodes
 
@@ -81,11 +82,11 @@ def generate_structures_html(inferred_blank_nodes_path, inferred_type_path, html
     pattern_file.close()
 
 # Function to create the web documentation in the patch specified by the user
-def generate_documentation(styles_path, patterns_type_path, inferred_blank_nodes_path, images_path, html_path, patterns_name_path, inferred_type_path):
+def generate_documentation(styles_path, patterns_type_path, inferred_blank_nodes_path, images_path_name, images_path_type, html_path, patterns_name_path, inferred_type_path):
     # Generate CSS file
     generate_style(styles_path)
     # Generate PatternType.html
-    generate_pattern_type_html(patterns_type_path, inferred_blank_nodes_path, images_path, html_path)
+    generate_pattern_type_html(patterns_type_path, inferred_blank_nodes_path, images_path_type, html_path)
     # Generate PatternName.html
     generate_pattern_name_html(patterns_name_path, html_path)
     # Generate Structure.html

@@ -52,6 +52,8 @@ def read_and_process_patterns(filename, csv_data, pattern_type, images_path):
             if not patterns[0] :
                 patterns.pop(0)
 
+            image_path_type = "static/images/type" if pattern_type else "static/images/name"
+
             # guardar los datos del txt
             for index, pattern in enumerate(patterns, start=1):
                 pattern_key = f"Pattern {index}"
@@ -102,7 +104,7 @@ def read_and_process_patterns(filename, csv_data, pattern_type, images_path):
                 if pattern_type:
                     image_file = f"{pattern_key}.svg"
                     image_path = os.path.join(images_path, image_file)
-                    image_file = f'static/images/{image_file}'
+                    image_file = f'{image_path_type}/{image_file}'
                     #image_file = url_for("static", filename=f"images/{image_file}")
                     if not image_exists(image_path):
                         image_file = 'No image available for this pattern.'
