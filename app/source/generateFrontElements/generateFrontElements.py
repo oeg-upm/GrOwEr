@@ -6,9 +6,10 @@ app = Flask(__name__)
 
 # Function to create the CSS file in the path specified by the user
 def generate_style(styles_path):
-    cwd = os.getcwd()
+    generate_front_elements_script_path = os.path.abspath(__file__)
+    generate_front_elements_path = os.path.dirname(generate_front_elements_script_path)
     # Path where the CSS template is located
-    css_path = os.path.join(cwd, 'app', 'source', 'generateFrontElements', 'templates', 'main.css')
+    css_path = os.path.join(generate_front_elements_path, 'templates', 'main.css')
     # Path specified by the user where the CSS file is going to be generated
     main_path = os.path.join(styles_path, 'main.css')
 

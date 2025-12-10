@@ -118,7 +118,9 @@ function checkFiles(files){
 //Function to show the name of the diagram the user selected, check its extension
 //and load the file in memory
 function processFile(f){
-    if (f != undefined && (f.type == 'text/csv' || f.type == 'application/x-zip-compressed')){
+    const file_type = getFileKind(f);
+    
+    if (file_type == 'csv' || file_type == 'zip'){
         //File extension correct'
         inputName.innerHTML = '<b>"' + f.name + '"</b>' + ' selected';
         file = f;
@@ -255,11 +257,12 @@ function detectPattern(file, typeValue, flattenValue){
 
         }    
     }
-    if (file.type == 'text/csv'){
+    const file_type = getFileKind(file);
+    if (file_type == 'csv'){
         // Append the file (CSV)
         fd.append('ontologiesCsv', file);
     }
-    else if (file.type == 'application/x-zip-compressed'){
+    else if (file_type == 'zip'){
         // Append the file (zip)
         fd.append('ontologiesZip', file);
     }
@@ -294,3 +297,40 @@ function downloadFile(filename, text){
 
     document.body.removeChild(element);
 }
+
+
+
+function getFileKind(file) {
+  if (!file) return null;
+
+  // Algunos entornos pasan Blobs sin name ni type
+  const type = (file.type || '').trim().toLowerCase();
+  const name = (file.name || '').trim().toLowerCase();
+
+  // Extrae extensión con regex, tolerando espacios o nombres raros
+  // 'archivo .csv' -> 'csv'
+  // 'data.backup.csv' -> 'csv'
+  const extMatch = name.match(/\.([a-z0-9]+)$/i);
+  const ext = extMatch ? extMatch[1] : '';
+
+  const isCsvByMime =
+    type === 'text/csv' ||
+    type === 'application/csv' ||
+    type === 'text/plain' ||
+    type === 'application/vnd.ms-excel';
+
+  const isCsvByExt = ext === 'csv';
+
+  const isZipByMime =
+    type === 'application/zip' ||
+    type === 'application/x-zip-compressed';
+
+  const isZipByExt = ext === 'zip' || ext === 'zipx';
+
+  if (isCsvByMime || isCsvByExt) return 'csv';
+  if (isZipByMime || isZipByExt) return 'zip';
+
+  return null;
+}
+
+
