@@ -1,6 +1,7 @@
 import argparse
 import os
 import sys
+
 from app.source.detectPatterns.download_ontology import download_ontologies
 from app.source.detectPatterns.create_structure import create_structure
 from app.source.detectPatterns.identify_patterns import identify_patterns
@@ -23,8 +24,12 @@ def main(ontology_path, csv_path, output_path, patterns_type, flatten_lists):
     create_directory(web_path)
     static_path = os.path.join(web_path, 'static')
     create_directory(static_path)
-    images_path = os.path.join(static_path, 'images')
-    create_directory(images_path)
+    root_images = os.path.join(static_path, 'images')
+    images_path_name = os.path.join(static_path, 'images', 'name')
+    images_path_type = os.path.join(static_path, 'images', 'type')
+    create_directory(root_images)
+    create_directory(images_path_name)
+    create_directory(images_path_type)
     styles_path = os.path.join(static_path, 'styles')
     create_directory(styles_path)
 
@@ -69,15 +74,15 @@ def main(ontology_path, csv_path, output_path, patterns_type, flatten_lists):
         # Create the diagrams. The following files are going to be created:
         #   - For each pattern an SVG file is created with the representation of the pattern
         #   - An XML file with the representation of all the patterns
-        create_diagram(f"{patterns_type_path}.txt", os.path.join(data_path, 'Visualization.xml'), images_path)
-        generate_documentation(styles_path, patterns_type_path, inferred_blank_nodes_path, images_path, web_path, patterns_name_path, inferred_type_path)
+        create_diagram(f"{patterns_type_path}.txt", os.path.join(data_path, 'Visualization_type.xml'), images_path_type)
+        generate_documentation(styles_path, patterns_type_path, inferred_blank_nodes_path, images_path_type, web_path, patterns_name_path, inferred_type_path)
     
     # Has the user specified that the patterns are going to be created from the name of the terms?
     elif patterns_type == 'name':
         # Create the files Patterns_name.csv and Patterns_name.txt
         identify_patterns(inferred_blank_nodes_path, patterns_name_path, False, None)
-        #create_diagram(f"{patterns_name_path}.txt", os.path.join(data_path, 'Visualization.xml'), images_path)
-        generate_documentation(styles_path, patterns_type_path, inferred_blank_nodes_path, images_path, web_path, patterns_name_path, inferred_type_path)
+        create_diagram(f"{patterns_name_path}.txt", os.path.join(data_path, 'Visualization_name.xml'), images_path_name)
+        generate_documentation(styles_path, patterns_type_path, inferred_blank_nodes_path, images_path_name, web_path, patterns_name_path, inferred_type_path)
     
     else:
         # Create the files Patterns_type.csv and Patterns_type.txt
@@ -87,9 +92,10 @@ def main(ontology_path, csv_path, output_path, patterns_type, flatten_lists):
         # Create the diagrams. The following files are going to be created:
         #   - For each pattern an SVG file is created with the representation of the pattern
         #   - An XML file with the representation of all the patterns
-        create_diagram(f"{patterns_type_path}.txt", os.path.join(data_path, 'Visualization.xml'), images_path)
+        create_diagram(f"{patterns_name_path}.txt", os.path.join(data_path, 'Visualization_name.xml'), images_path_name)
+        create_diagram(f"{patterns_type_path}.txt", os.path.join(data_path, 'Visualization_type.xml'), images_path_type)
         # Create HTML and CSS files
-        generate_documentation(styles_path, patterns_type_path, inferred_blank_nodes_path, images_path, web_path, patterns_name_path, inferred_type_path)
+        generate_documentation(styles_path, patterns_type_path, inferred_blank_nodes_path, images_path_name, images_path_type, web_path, patterns_name_path, inferred_type_path)
     
     error_log.close()
 
