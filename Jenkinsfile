@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'GrOwEr' }
+    agent any 
 
     environment {
         DOCKERHUB = credentials('oeg-dockerhub')
