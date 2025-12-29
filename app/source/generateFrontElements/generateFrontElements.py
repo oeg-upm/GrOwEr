@@ -46,9 +46,9 @@ def generate_pattern_type_html(patterns_type_path, inferred_blank_nodes_path, im
 
     pattern_file.close()
 
-def generate_pattern_name_html(patterns_name_path, html_path):
+def generate_pattern_name_html(patterns_name_path, images_path_name, html_path):
     csv_name_data = read_csv_file(f'{patterns_name_path}.csv')
-    pattern_content_name, header_list = read_and_process_patterns(f'{patterns_name_path}.txt', csv_name_data, False, None)
+    pattern_content_name, header_list = read_and_process_patterns(f'{patterns_name_path}.txt', csv_name_data, False, images_path_name)
     
     with app.app_context():
         if "error" in pattern_content_name:
@@ -88,6 +88,6 @@ def generate_documentation(styles_path, patterns_type_path, inferred_blank_nodes
     # Generate PatternType.html
     generate_pattern_type_html(patterns_type_path, inferred_blank_nodes_path, images_path_type, html_path)
     # Generate PatternName.html
-    generate_pattern_name_html(patterns_name_path, html_path)
+    generate_pattern_name_html(patterns_name_path, images_path_name, html_path)
     # Generate Structure.html
     generate_structures_html(inferred_blank_nodes_path, inferred_type_path, html_path)

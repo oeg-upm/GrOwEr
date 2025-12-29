@@ -91,10 +91,24 @@
             {% else %}
             <h4 id="{{ key }}" class="pt-5">Specific {{ key }}</h4>
             {% endif %}
-            <!--Diagram-->
-            <p>
-              <code>{{ pattern[0]|safe }}</code>
-            </p>
+            <!--Diagram and image-->
+            <div id="container-patterntype">
+              <div id="container-diagram-ontologie">
+                <p><code>{{ pattern[0]|safe }}</code></p>
+              </div>
+              <div id="container-image-patterntype">
+                <p>
+                    <!-- Image -->
+                    {% if "No image available" in pattern[4] %}
+                    <div class="alert alert-danger" role="alert">{{pattern[4]}}</div>
+                    {% else %}
+                    <a href="{{ pattern[4] }}" data-fancybox>
+                      <img src="{{ pattern[4] }}" alt="img type {{ pattern[4] }}" />
+                    </a>
+                    {% endif %}
+                </p>
+              </div>
+            </div>
             <!--Times-->
             <p>{{ pattern[1] }}</p>
             <!--Number of ontologies-->
