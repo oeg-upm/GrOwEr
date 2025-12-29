@@ -100,22 +100,28 @@ def read_and_process_patterns(filename, csv_data, pattern_type, images_path):
                 else:
                     value_csv = {"No data": ["No CSV data found for this pattern."]}
 
+                image_file = f"{pattern_key}.svg"
+                image_path = os.path.join(images_path, image_file)
+                image_file = f'{image_path_type}/{image_file}'
+
+                if not image_exists(image_path):
+                    image_file = 'No image available for this pattern.'
+                
+                print(image_file)
+
             # Verificar y añadir imagen
-                if pattern_type:
-                    image_file = f"{pattern_key}.svg"
-                    image_path = os.path.join(images_path, image_file)
-                    image_file = f'{image_path_type}/{image_file}'
-                    #image_file = url_for("static", filename=f"images/{image_file}")
-                    if not image_exists(image_path):
-                        image_file = 'No image available for this pattern.'
+            #    if pattern_type:
+            #        image_file = f"{pattern_key}.svg"
+            #        image_path = os.path.join(images_path, image_file)
+            #        image_file = f'{image_path_type}/{image_file}'
+            #        #image_file = url_for("static", filename=f"images/{image_file}")
+            #        if not image_exists(image_path):
+            #            image_file = 'No image available for this pattern.'
 
             #añadir al diccionario de salida
-                if pattern_type:
-                    content =[diagram,times,ontologies,csv,image_file]
-                    data.update({pattern_key:content})
-                else:
-                    content =[diagram,times,ontologies,csv]
-                    data.update({pattern_key:content})
+                content =[diagram,times,ontologies,csv,image_file]
+                data.update({pattern_key:content})
+                
     except FileNotFoundError:
         error_name = "Patterns_type.txt" if pattern_type else "Patterns_name.txt"
         return {"error": f"The file {error_name} does not exist."}, []
