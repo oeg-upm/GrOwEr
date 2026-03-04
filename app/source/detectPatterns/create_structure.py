@@ -556,8 +556,15 @@ def uri_to_prefix(uri):
         if ont_base_ns and uri.startswith(ont_base_ns):
             suffix = uri[len(ont_base_ns):]
             if suffix:
-                prefix_lower = ont_prefix.lower().replace('.rdf', '').replace('.owl', '')
-                return f"{prefix_lower}:{suffix}"
+                # Extract last path segment from namespace (e.g., saref4ener from https://saref.etsi.org/saref4ener/)
+                if ont_base_ns.endswith('/'):
+                    ns_for_extract = ont_base_ns[:-1]
+                else:
+                    ns_for_extract = ont_base_ns
+                ns_prefix = ns_for_extract.rsplit('/', 1)[-1] if '/' in ns_for_extract else None
+                if ns_prefix:
+                    return f"{ns_prefix}:{suffix}"
+                return suffix
         
         if '#' in uri:
             ns_part, name = uri.rsplit('#', 1)

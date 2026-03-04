@@ -232,7 +232,7 @@ function detectPattern(file, typeValue, flattenValue){
     downloadButton.disabled = true;
     
     //const uri = 'https://chowlk.linkeddata.es/api';
-    const uri = 'http://localhost:5000/api';
+    const uri = 'http://127.0.0.1:5001/api';
     // Create an HTTP request
     const xhr = new XMLHttpRequest();
     // Specify how the data is going to be sent in the request
