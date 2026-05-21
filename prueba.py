@@ -44,7 +44,7 @@ def main(ontology_path, csv_path, output_path, patterns_type, flatten_lists):
         error_log.close()
         exit(-1)
 
-    # Has the user specified a path to a csv file with the ontologies to donwload?
+    # Has the user specified a path to a csv file with the ontologies to download?
     if csv_path != '':
         download_ontologies(csv_path, ontology_path, error_log)
 

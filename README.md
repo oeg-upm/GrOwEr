@@ -26,32 +26,91 @@ Ontologies are formal knowledge models that describe concepts and relationships 
   * Patterns_name: A file which contains the patterns which have been found through the Structure_term_inferred_blank_nodes.
   * Patterns_type: A file which contains the patterns which have been found through the Structure_term_inferred_type file.
 
-## How to execute the tool
+## Usage
 
-### 1. Running it from docker:
-### Copy the project:
+### Using Docker and a local image
+
+1. Copy the project:
 ```bash
 git clone https://github.com/Sergio-Carulli/Patrones.git
 ```
-### Docker:
-1. Intall and run Docker Desktop
-2. Open a command line located in the Chowlk repository and execute:
+2. Install and run [Docker](https://docs.docker.com/) Desktop
+3. Open a command line located in the Chowlk repository and launch GrOwEr:
 ```bash
 docker compose up
 ```
 
-### 2. Running it from command line:
+### Using Docker and a community image
 
-The tool can be executed via the command line as follows:
+1. Download and launch the latest GrOwEr image:
+```shell
+docker run \
+  -d \
+  --interactive \
+  --rm \
+  --name oeg-grower \
+  -p 5000:5000 \
+  jarueda/oeg-grower:latest
+```
+2. Open the GrOwEr Web interface with your favorite Web browser: http://127.0.0.1:5000
+3. Stop the container when done with using GrOwEr:
+```shell
+docker container stop oeg-grower
+```
 
-```bash
-app.py [-h] [-ontology ONTOLOGY_PATH] [-csv CSV_PATH] [-output OUTPUT_PATH] [-patterns {type,name,both}] [-flatten {yes,no}]
+### Using Python from the command line
+
+#### Prerequisites
+* Python3.10+
+* Install OS-level packages:
+```shell
+sudo apt install postgresql postgresql-contrib libpq-dev python3-dev
+```
+* Installing the third-party Python packages:
+```shell
+pip3 install -r ./requirements.txt
+```
+
+#### Running the tool
+
+The tool can be executed via the command line using the following canonical form:
+
+```
+python3 app.py [-h] [-ontology ONTOLOGY_PATH] [-csv CSV_PATH] [-output OUTPUT_PATH] [-patterns {type,name,both}] [-flatten {yes,no}]
 ```
 
 where:
 
-* ONTOLOGY_PATH is the path to a folder where the ontologies are going to be downloaded. The patterns are going to be identified using the ontologies stored in this folder
-* CSV_PATH is the path to the csv file indicating what ontologies are going to be downloaded. This parameter is optional. If this parameter is not specified, it is assumed that the ontologies are already downloaded and are located in ONTOLOGY_PATH.
-* OUTPUT_PATH is the path a folder where the output is going to be stored. This parameter is optional. If this parameter is not specified, it is assumed that the output is going to be stored in the current directory.
-* PATTERNS is a flag to indicate if the patterns are going to be created from the type of the terms or from the name of the terms or from both. This parameter is optional. By default the patterns are going to be creaded just by the type of the terms.
-* FLATTEN is a flag to indicate if the collections are going to be flattened if they only contain named classes. This parameter is optional. By default the collections are not going to be flattened.
+* `ONTOLOGY_PATH` is the path to a folder where the ontologies are going to be downloaded. The patterns are going to be identified using the ontologies stored in this folder
+* `CSV_PATH` is the path to the csv file indicating what ontologies are going to be downloaded. This parameter is optional. If this parameter is not specified, it is assumed that the ontologies are already downloaded and are located in ONTOLOGY_PATH.
+* `OUTPUT_PATH` is the path a folder where the output is going to be stored. This parameter is optional. If this parameter is not specified, it is assumed that the output is going to be stored in the current directory.
+* `PATTERNS` is a flag to indicate if the patterns are going to be created from the type of the terms or from the name of the terms or from both. This parameter is optional. By default the patterns are going to be creaded just by the type of the terms.
+* `FLATTEN` is a flag to indicate if the collections are going to be flattened if they only contain named classes. This parameter is optional. By default the collections are not going to be flattened.
+
+Examples:
+
+```shell
+# Calling the help
+python3 app.py -h
+```
+
+```shell
+# Process data from the ./dataset folder and store results in the ./out folder
+mkdir -p ./out
+python3 app.py \
+  -ontology ./dataset \
+  -output ./out \
+  -patterns both    
+```
+
+## Copyright
+
+Copyright (c) 2025-2026, Ontology Engineering Group, Universidad Politécnica de Madrid. All rights reserved.
+
+## License
+
+[Apache License 2.0](LICENSE)
+
+## Maintainer
+
+* María Poveda-Villalón (project lead)
